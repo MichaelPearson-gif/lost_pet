@@ -18,7 +18,7 @@ Lost Pet Locator
 * [D3](https://d3js.org/)
 
 # Authors
-View the entire list of [contributors](https://github.com/MichaelPearson-gif/Earthquake-Visualization/graphs/contributors) in this project as well as each individual commit history.
+View the entire list of [contributors](https://github.com/MichaelPearson-gif/lost_pet/graphs/contributors) in this project as well as each individual commit history.
 
 # Planned Updates
 Building more web-application pages for people to view lost and found pets and an interactive geographical map to help visualize last known locations of lost pets.
