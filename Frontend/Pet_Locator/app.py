@@ -21,9 +21,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "s
 db = SQLAlchemy(app)
 
 # Import the Lost and Found classes
-from .models import Lost, Found
+# from .models import Lost, Found
 
 # Create the route to render to the index.html template
 @app.route("/")
 def home():
     return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run()
