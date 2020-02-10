@@ -9,6 +9,9 @@ from flask import (
 
 from datetime import datetime
 
+# Import geojsonify converter
+from geojsonify import geojsonify
+
 # Flask setup
 app = Flask(__name__)
 
