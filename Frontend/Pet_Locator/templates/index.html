@@ -5,16 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
     <title>Lost Pet Locator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
 </head>
 
 <body>
+    <!-- Create a header for the web page-->
     <div class="container">
         <div class="jumbotron" style="text-align: center">
             <h1>Lost Pet Locator</h1>
             <p></p>
+        </div>
+    </div>
+    <div class="choice">
+        <h2></h2>
+        <div class="row">
+            <!-- Make the row into 2 columns for the buttons to report a lost or found pet-->
+            <!-- The first one will have the button to report a lost pet -->
+            <div class="col-md-6" id="lost">
+                <button id="submit" class="btn btn-default">Report a Lost Pet</button>
+            </div>
+            <!-- The second column will have the button to report a found pet -->
+            <div class="col-md-6" id="found">
+                <button id="submit" class="btn btn-default">Report a Found Pet</button>
+            </div>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>

@@ -7,3 +7,13 @@ d3.select(".jumbotron").selectAll("p")
     .html(function(d) {
         return d;
     });
+
+// Create a header for the h2 tag
+var choiceTitle = "What type of report would you like to file?"
+
+d3.select(".choice").selectAll("h2")
+    .text(choiceTitle)
+    .enter()
+    .html(function(d) {
+        return d;
+    });
