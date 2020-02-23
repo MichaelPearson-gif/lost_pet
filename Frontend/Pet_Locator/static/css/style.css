@@ -1,7 +1,15 @@
 .choice {
     text-align: center;
+    padding: 3%
 }
 
 .Map {
     text-align: center;
+    padding: 5%
+}
+
+.btn {
+    padding: 3%;
+    background-color: lightgrey;
+    margin-top: 5%;
 }
