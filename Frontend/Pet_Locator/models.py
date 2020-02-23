@@ -26,6 +26,10 @@ class Lost(db.Model):
     time = db.Column(db.Time)
     # description = pet's appearance and behaviors
     description = db.Column(db.Text)
+    return_street_add = db.Column(db.Text)
+    return_city = db.Column(db.Text)
+    return_state = db.Column(db.Text)
+    return_zip_code = db.Column(db.Float)
 
     def __repr__(self):
         return '<Lost %r>' % (self.name)
