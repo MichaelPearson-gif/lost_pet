@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "s
 db = SQLAlchemy(app)
 
 # Import the Lost and Found classes
-# from .models import Lost, Found
+from .models import Lost, Found
 
 # Create the route to render to the index.html template
 @app.route("/")
@@ -88,6 +88,65 @@ def Fsend():
         return redirect("/", code=302)
 
     return render_template("found.html")
+
+# This route will be used for the map to show all the reported lost pets
+@app.route("/api/lost/map")
+def lost_map():
+
+    # List object to hold all the info I want to query from the DB
+    sel = [
+        Lost.id,
+        Lost.name,
+        Lost.pet_type,
+        Lost.age,
+        Lost.street_add,
+        Lost.city,
+        Lost.state,
+        Lost.zip_code,
+        Lost.lat,
+        Lost.lng,
+        Lost.owner,
+        Lost.phone,
+        Lost.email,
+        Lost.date,
+        Lost.time,
+        Lost.description,
+        Lost.return_street_add,
+        Lost.return_city,
+        Lost.return_state,
+        Lost.return_zip_code
+    ]
+
+    # Query the database
+    results = db.session.query(*sel).all()
+
+    # Creating a dictionary to store the info from the db
+    lost_pet = {}
+    for result in results:
+        lost_pet["ID"] = result[0]
+        lost_pet["Pet Name"] = result[1]
+        lost_pet["Pet Type"] = result[2]
+        lost_pet["Pet Age"] = result[3]
+        lost_pet["Street Address"] = result[4]
+        lost_pet["City"] = result[5]
+        lost_pet["State"] = result[6]
+        lost_pet["Zip Code"] = result[7]
+        lost_pet["lat"] = result[8]
+        lost_pet["lng"] = result[9]
+        lost_pet["Owner's Name"] = result[10]
+        lost_pet["Owner's Phone Number"] = result[11]
+        lost_pet["Owner's Email"] = result[12]
+        lost_pet["Date"] = result[13]
+        lost_pet["Time"] = result[14]
+        lost_pet["Description"] = result[15]
+        lost_pet["Return Street Address"] = result[16]
+        lost_pet["Return City"] = result[17]
+        lost_pet["Return State"] = result[18]
+        lost_pet["Return Zip Code"] = result[19]
+
+    # Returning the dictionary as a geojson objet
+    return geojsonify(lost_pet)
+
 
 
 if __name__ == "__main__":
