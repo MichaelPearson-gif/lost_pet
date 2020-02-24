@@ -90,7 +90,7 @@ def Fsend():
     return render_template("found.html")
 
 # This route will be used for the map to show all the reported lost pets
-@app.route("/api/lost/map")
+@app.route("/api/map/lost")
 def lost_map():
 
     # List object to hold all the info I want to query from the DB
@@ -146,6 +146,56 @@ def lost_map():
 
     # Returning the dictionary as a geojson objet
     return geojsonify(lost_pet)
+
+# This route will be used for the map to show all the reported found pets
+@app.route("/api/map/found")
+def found_map():
+
+    # List object to hold all the info I want to query from the DB
+    sel = [
+        Found.id,
+        Found.pet_type,
+        Found.age,
+        Found.street_add,
+        Found.city,
+        Found.state,
+        Found.zip_code,
+        Found.lat,
+        Found.lng,
+        Found.founder,
+        Found.phone,
+        Found.email,
+        Found.date,
+        Found.time,
+        Found.aquired,
+        Found.description
+    ]
+
+    # Query the database
+    results = db.session.query(*sel).all()
+
+    # Creating a dictionary to store the info from the db
+    found_pet = {}
+    for result in results:
+        found_pet["ID"] = result[0]
+        found_pet["Pet Type"] = result[1]
+        found_pet["Age"] = result[2]
+        found_pet["Street Address"] = result[3]
+        found_pet["City"] = result[4]
+        found_pet["State"] = result[5]
+        found_pet["Zip Code"] = result[6]
+        found_pet["lat"] = result[7]
+        found_pet["lng"] = result[8]
+        found_pet["Founder's Name"] = result[9]
+        found_pet["Founder's Phone"] = result[10]
+        found_pet["Founder's Email"] = result[11]
+        found_pet["Date"] = result[12]
+        found_pet["Time"] = result[13]
+        found_pet["Aquired"] = result[14]
+        found_pet["Description"] = result[15]
+
+    # Returning the dictionary as a geojson object
+    return geojsonify(found_pet)
 
 
 
