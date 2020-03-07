@@ -1,0 +1,1 @@
+FLASK_APP=Pet_Locator/app.py flask run

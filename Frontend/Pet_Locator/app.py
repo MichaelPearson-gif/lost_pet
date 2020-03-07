@@ -10,14 +10,16 @@ from flask import (
 from datetime import datetime
 
 # Import geojsonify converter
-from geojsonify import geojsonify
+from .geojsonify import geojsonify
 
 # Flask setup
 app = Flask(__name__)
 
 # Database setup
 from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db/Pets.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///./db/Pet_Tracker.sqlite"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db/Pet_Tracker.sqlite"
+
 db = SQLAlchemy(app)
 
 # Import the Lost and Found classes
@@ -200,4 +202,4 @@ def found_map():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
