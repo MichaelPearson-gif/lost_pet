@@ -17,13 +17,18 @@ app = Flask(__name__)
 
 # Database setup
 from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///./db/Pet_Tracker.sqlite"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db/Pet_Tracker.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db/Pet_Tracker.sqlite"
 
 db = SQLAlchemy(app)
 
 # Import the Lost and Found classes
 from .models import Lost, Found
+
+# Create the database
+@app.before_first_request
+def setup():
+    # db.drop_all()
+    db.create_all()
 
 # Create the route to render to the index.html template
 @app.route("/")
