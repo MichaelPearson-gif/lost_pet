@@ -35,6 +35,11 @@ def setup():
 def home():
     return render_template("index.html")
 
+# Create the route to render to the map.html template
+@app.route("/map")
+def map():
+    return render_template("map.html")
+
 # Query the database and send the jsonified results for the lost and pet tables
 # Lost Pet
 @app.route("/lost_send", methods=["GET", "POST"])
