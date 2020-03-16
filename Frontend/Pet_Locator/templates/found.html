@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+        <title>Found Pet Form</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    </head>
+
+    <body>
+        <!-- Create the form -->
+        <div class="container">
+            <div class="jumbotron" style="text-align: center">
+                <h1>Report a Found Pet</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                    <h2>Please enter the information about the pet you found</h2>
+                    <form method="POST" action="/lost_send" role="form", name="LostPetForm">
+                        <div class="form-group">
+                            <label for="inputPetType">Pet Species</label>
+                            <input type="text" class="form-control" id="inputPetType" name="petType" placeholder="Pet Species">
+                        </div> 
+                        <div class="form-group">
+                            <label for="inputPetAge">Pet Age</label>
+                            <input type="text" class="form-control" id="inputPetAge" name="petAge" placeholder="Pet Age">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Street Address</label>
+                            <input type="text" class="form-control" id="inputAddress" name="streetAddress" placeholder="Street Address">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity" name="City" placeholder="City Name">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputState">State</label>
+                            <input type="text" class="form-control" id="inputState" name="State" placeholder="State Name">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputZipCode">Zip Code</label>
+                            <input type="text" class="form-control" id="inputZipCode" name="ZipCode" placeholder="Zip Code">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputFounder">Founder Name</label>
+                            <input type="text" class="form-control" id="inputFounder" name="founderName" placeholder="Founder's Name">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputPhone">Phone</label>
+                            <input type="text" class="form-control" id="inputPhone" name="founderPhone" placeholder="Phone Number">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input type="text" class="form-control" id="inputEmail" name="founderEmail" placeholder="Email Address">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputDate">Date</label>
+                            <input type="text" class="form-control" id="inputDate" name="foundDate" placeholder="Date">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputTime">Time</label>
+                            <input type="text" class="form-control" id="inputTime" name="foundTime" placeholder="Time">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAquired">Did you catch the pet?</label>
+                            <input type="text" class="form-control" id="inputAquired" name="Aquired" placeholder="Yes or No">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="inputDescription">Pet Description and Other Details</label>
+                            <input type="text" class="form-control" id="inputDescription" name="petDescription" placeholder="Description">
+                        </div>                        
+                        <input type="submit" value="submit" class="btn btn-primary">                                                    
+                   
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    </body>
+
+</html>
