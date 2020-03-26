@@ -9,6 +9,15 @@ from flask import (
 
 from datetime import datetime
 
+# Import requests to make an API call to retrieve coordinate data
+import requests
+
+# Import json to help convert the API request into a json format
+import json
+
+# Import API key
+from .config import gkey
+
 # Import geojsonify converter
 from .geojsonify import geojsonify
 
@@ -52,8 +61,8 @@ def Lsend():
         city = request.form["lostCity"]
         state = request.form["lostState"]
         zip_code = request.form["lostZipCode"]
-        lat = request.form["petLat"]
-        lng = request.form["petLng"]
+        # lat = request.form["petLat"]
+        # lng = request.form["petLng"]
         owner = request.form["ownerName"]
         phone = request.form["ownerPhone"]
         email = request.form["ownerEmail"]
@@ -65,6 +74,22 @@ def Lsend():
         return_state = request.form["returnState"]
         return_zip_code = request.form["returnZipCode"]
 
+        # Making an API call to retrieve the geographical coordinates
+        # Address that the API will be looking for
+        target_address = f"{street_add} {city}, {state}"
+
+        # Building the endpoint URL
+        lost_url = ('https://maps.googleapis.com/maps/api/geocode/json?'
+            'address={0}&key={1}').format(target_address, gkey)
+
+        # Make the request to the endpoint and convert the result to json
+        geo_data = requests.get(lost_url).json()
+
+        # Extract the latitude and longitude
+        lat = geo_data["results"][0]["geometry"]["location"]["lat"]
+        lng = geo_data["results"][0]["geometry"]["location"]["lng"]
+
+        # Add the new data into the database
         lost_pet = Lost(name=name, pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, owner=owner, phone=phone, email=email, date=date, time=time, description=description, return_street_add=return_street_add, return_city=return_city, return_state=return_state, return_zip_code=return_zip_code)
         db.session.add(lost_pet)
         db.session.commit()
@@ -82,8 +107,8 @@ def Fsend():
         city = request.form["City"]
         state = request.form["State"]
         zip_code = request.form["ZipCode"]
-        lat = request.form["petLat"]
-        lng = request.form["petLng"]
+        # lat = request.form["petLat"]
+        # lng = request.form["petLng"]
         founder = request.form["founderName"]
         phone = request.form["founderPhone"]
         email = request.form["founderEmail"]
@@ -92,6 +117,22 @@ def Fsend():
         aquired = request.form["Aquired"]
         description = request.form["petDescription"]
 
+        # Making an API call to retrieve the geographical coordinates
+        # Address that the API will be looking for
+        target_address = f"{street_add} {city}, {state}"
+
+        # Building the endpoint URL
+        found_url = ('https://maps.googleapis.com/maps/api/geocode/json?'
+            'address={0}&key={1}').format(target_address, gkey)
+
+        # Make the request to the endpoint and convert the result to json
+        geo_data = requests.get(found_url).json()
+
+        # Extract the latitude and longitude
+        lat = geo_data["results"][0]["geometry"]["location"]["lat"]
+        lng = geo_data["results"][0]["geometry"]["location"]["lng"]
+
+        # Add the new data into the database
         found_pet = Found(pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, founder=founder, phone=phone, email=email, date=date, time=time, aquired=aquired, description=description)
         db.session.add(found_pet)
         db.session.commit()
