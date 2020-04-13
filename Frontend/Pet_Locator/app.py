@@ -89,8 +89,11 @@ def Lsend():
         lat = geo_data["results"][0]["geometry"]["location"]["lat"]
         lng = geo_data["results"][0]["geometry"]["location"]["lng"]
 
+        # Convert any uppercase letters in pet_type to lowercase
+        p_type = pet_type.lower()
+
         # Add the new data into the database
-        lost_pet = Lost(name=name, pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, owner=owner, phone=phone, email=email, date=date, time=time, description=description, return_street_add=return_street_add, return_city=return_city, return_state=return_state, return_zip_code=return_zip_code)
+        lost_pet = Lost(name=name, pet_type=p_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, owner=owner, phone=phone, email=email, date=date, time=time, description=description, return_street_add=return_street_add, return_city=return_city, return_state=return_state, return_zip_code=return_zip_code)
         db.session.add(lost_pet)
         db.session.commit()
         return redirect("/", code=302)
@@ -132,8 +135,11 @@ def Fsend():
         lat = geo_data["results"][0]["geometry"]["location"]["lat"]
         lng = geo_data["results"][0]["geometry"]["location"]["lng"]
 
+        # Convert any uppercase letters in pet_type to lowercase
+        p_type = pet_type.lower()
+
         # Add the new data into the database
-        found_pet = Found(pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, founder=founder, phone=phone, email=email, date=date, time=time, aquired=aquired, description=description)
+        found_pet = Found(pet_type=p_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, founder=founder, phone=phone, email=email, date=date, time=time, aquired=aquired, description=description)
         db.session.add(found_pet)
         db.session.commit()
         return redirect("/", code=302)
