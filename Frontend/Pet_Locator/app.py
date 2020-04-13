@@ -7,7 +7,7 @@ from flask import (
     request,
     redirect)
 
-from datetime import datetime
+import datetime as dt 
 
 # Import requests to make an API call to retrieve coordinate data
 import requests
@@ -89,8 +89,13 @@ def Lsend():
         lat = geo_data["results"][0]["geometry"]["location"]["lat"]
         lng = geo_data["results"][0]["geometry"]["location"]["lng"]
 
+        # Convert the date and time into python datetime objects
+        date_obj = dt.datetime.strptime(date, "%m/%d/%Y").date()
+        time_obj = dt.datetime.strptime(time, "%H:%M").time()
+
+
         # Add the new data into the database
-        lost_pet = Lost(name=name, pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, owner=owner, phone=phone, email=email, date=date, time=time, description=description, return_street_add=return_street_add, return_city=return_city, return_state=return_state, return_zip_code=return_zip_code)
+        lost_pet = Lost(name=name, pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, owner=owner, phone=phone, email=email, date=date_obj, time=time_obj, description=description, return_street_add=return_street_add, return_city=return_city, return_state=return_state, return_zip_code=return_zip_code)
         db.session.add(lost_pet)
         db.session.commit()
         return redirect("/", code=302)
@@ -132,8 +137,13 @@ def Fsend():
         lat = geo_data["results"][0]["geometry"]["location"]["lat"]
         lng = geo_data["results"][0]["geometry"]["location"]["lng"]
 
+        # Convert the date and time into python datetime objects
+        date_obj = dt.datetime.strptime(date, "%m/%d/%Y").date()
+        time_obj = dt.datetime.strptime(time, "%H:%M").time()
+
+
         # Add the new data into the database
-        found_pet = Found(pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, founder=founder, phone=phone, email=email, date=date, time=time, aquired=aquired, description=description)
+        found_pet = Found(pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, founder=founder, phone=phone, email=email, date=date_obj, time=time_obj, aquired=aquired, description=description)
         db.session.add(found_pet)
         db.session.commit()
         return redirect("/", code=302)
