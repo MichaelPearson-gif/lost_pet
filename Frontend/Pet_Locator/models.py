@@ -22,8 +22,8 @@ class Lost(db.Model):
     owner = db.Column(db.Text)
     phone = db.Column(db.Text)
     email = db.Column(db.Text)
-    date = db.Column(db.Date)
-    time = db.Column(db.Time)
+    date = db.Column(db.Text)
+    time = db.Column(db.Text)
     # description = pet's appearance and behaviors
     description = db.Column(db.Text)
     return_street_add = db.Column(db.Text)
@@ -53,8 +53,8 @@ class Found(db.Model):
     founder = db.Column(db.Text)
     phone = db.Column(db.Text)
     email = db.Column(db.Text)
-    date = db.Column(db.Date)
-    time = db.Column(db.Time)
+    date = db.Column(db.Text)
+    time = db.Column(db.Text)
     # aquired = yes or no if the person was able to catch the lost pet
     aquired = db.Column(db.Text)
     # description = pet's appearance and behaviors

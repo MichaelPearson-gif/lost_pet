@@ -89,13 +89,8 @@ def Lsend():
         lat = geo_data["results"][0]["geometry"]["location"]["lat"]
         lng = geo_data["results"][0]["geometry"]["location"]["lng"]
 
-        # Convert the date and time into python datetime objects
-        date_obj = dt.datetime.strptime(date, "%m/%d/%Y").date()
-        time_obj = dt.datetime.strptime(time, "%H:%M").time()
-
-
         # Add the new data into the database
-        lost_pet = Lost(name=name, pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, owner=owner, phone=phone, email=email, date=date_obj, time=time_obj, description=description, return_street_add=return_street_add, return_city=return_city, return_state=return_state, return_zip_code=return_zip_code)
+        lost_pet = Lost(name=name, pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, owner=owner, phone=phone, email=email, date=date, time=time, description=description, return_street_add=return_street_add, return_city=return_city, return_state=return_state, return_zip_code=return_zip_code)
         db.session.add(lost_pet)
         db.session.commit()
         return redirect("/", code=302)
@@ -137,13 +132,8 @@ def Fsend():
         lat = geo_data["results"][0]["geometry"]["location"]["lat"]
         lng = geo_data["results"][0]["geometry"]["location"]["lng"]
 
-        # Convert the date and time into python datetime objects
-        date_obj = dt.datetime.strptime(date, "%m/%d/%Y").date()
-        time_obj = dt.datetime.strptime(time, "%H:%M").time()
-
-
         # Add the new data into the database
-        found_pet = Found(pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, founder=founder, phone=phone, email=email, date=date_obj, time=time_obj, aquired=aquired, description=description)
+        found_pet = Found(pet_type=pet_type, age=age, street_add=street_add, city=city, state=state, zip_code=zip_code, lat=lat, lng=lng, founder=founder, phone=phone, email=email, date=date, time=time, aquired=aquired, description=description)
         db.session.add(found_pet)
         db.session.commit()
         return redirect("/", code=302)
@@ -181,30 +171,33 @@ def lost_map():
     results = db.session.query(*sel).all()
 
     # Creating a dictionary to store the info from the db
-    lost_pet = {}
-    for result in results:
-        lost_pet["Pet Name"] = result[0]
-        lost_pet["Pet Type"] = result[1]
-        lost_pet["Pet Age"] = result[2]
-        lost_pet["Street Address"] = result[3]
-        lost_pet["City"] = result[4]
-        lost_pet["State"] = result[5]
-        lost_pet["Zip Code"] = result[6]
-        lost_pet["lat"] = result[7]
-        lost_pet["lng"] = result[8]
-        lost_pet["Owner's Name"] = result[9]
-        lost_pet["Owner's Phone Number"] = result[10]
-        lost_pet["Owner's Email"] = result[11]
-        lost_pet["Date"] = result[12]
-        lost_pet["Time"] = result[13]
-        lost_pet["Description"] = result[14]
-        lost_pet["Return Street Address"] = result[15]
-        lost_pet["Return City"] = result[16]
-        lost_pet["Return State"] = result[17]
-        lost_pet["Return Zip Code"] = result[18]
+    lost_dict = []
+    for name, pet_type, age, street_add, city, state, zip_code, lat, lng, owner, phone, email, date, time, description, return_street_add, return_city, return_state, return_zip_code in results:
+        lost_pet = {
+            "Pet Name" : name,
+            "Pet Type" : pet_type,
+            "Pet Age" : age,
+            "Street Address" : street_add,
+            "City" : city,
+            "State" : state,
+            "Zip Code" : zip_code,
+            "lat" : lat,
+            "lng" : lng,
+            "Owner's Name" : owner,
+            "Owner's Phone Number" : phone,
+            "Owner's Email" : email,
+            "Date" : date,
+            "Time" : time,
+            "Description" : description,
+            "Return Street Address" : return_street_add,
+            "Return City" : return_city,
+            "Return State" : return_state,
+            "Return Zip Code" : return_zip_code
+        }
+        lost_dict.append(lost_pet)
 
-    # Returning the dictionary as a geojson objet
-    return geojsonify(lost_pet)
+    # Jsonify the data
+    return geojsonify(lost_dict)
 
 # This route will be used for the map to show all the reported found pets
 @app.route("/api/map/found")
@@ -233,28 +226,29 @@ def found_map():
     results = db.session.query(*sel).all()
 
     # Creating a dictionary to store the info from the db
-    found_pet = {}
-    for result in results:
-        found_pet["Pet Type"] = result[0]
-        found_pet["Age"] = result[1]
-        found_pet["Street Address"] = result[2]
-        found_pet["City"] = result[3]
-        found_pet["State"] = result[4]
-        found_pet["Zip Code"] = result[5]
-        found_pet["lat"] = result[6]
-        found_pet["lng"] = result[7]
-        found_pet["Founder's Name"] = result[8]
-        found_pet["Founder's Phone"] = result[9]
-        found_pet["Founder's Email"] = result[10]
-        found_pet["Date"] = result[11]
-        found_pet["Time"] = result[12]
-        found_pet["Aquired"] = result[13]
-        found_pet["Description"] = result[14]
+    found_dict = []
+    for pet_type, age, street_add, city, state, zip_code, lat, lng, founder, phone, email, date, time, aquired, description in results:
+        found_pet = {
+            "Pet Type" : pet_type,
+            "Pet Age" : age,
+            "Street Address" : street_add,
+            "City" : city,
+            "State" : state,
+            "Zip Code" : zip_code,
+            "lat" : lat,
+            "lng" : lng,
+            "Owner's Name" : founder,
+            "Owner's Phone Number" : phone,
+            "Owner's Email" : email,
+            "Date" : date,
+            "Time" : time,
+            "Aquired": aquired,
+            "Description" : description
+        }
+        found_dict.append(found_pet)
 
-    # Returning the dictionary as a geojson object
-    return geojsonify(found_pet)
-
-
+    # Jsonify the data
+    return geojsonify(found_dict)
 
 if __name__ == "__main__":
     app.run(debug=True)

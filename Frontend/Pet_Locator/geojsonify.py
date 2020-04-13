@@ -41,4 +41,4 @@ def geojsonify(data):
     }
 
     # Return the geojson object
-    return json.dumps(geojson)
+    return json.dumps(geojson, sort_keys=False)
