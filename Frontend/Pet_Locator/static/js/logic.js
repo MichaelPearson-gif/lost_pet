@@ -24,4 +24,5 @@ function getIcon(animal) {
     else {
         return "paw";
     }
-}
+};
+
