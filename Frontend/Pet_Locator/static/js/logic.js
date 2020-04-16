@@ -112,5 +112,5 @@ function createFeatures(lost, found) {
     });
 
     // Sending the two layers to the createMap function
-    createImageBitmap(lostLayer, foundLayer);
+    createMap(lostLayer, foundLayer);
 }
