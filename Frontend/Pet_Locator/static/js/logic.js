@@ -1,8 +1,17 @@
 // Load the data from both tables
 var lostData = "/api/map/lost";
+
 var foundData = "/api/map/found";
 
-// Create a function to choose the marker icon
+// Print to the data to the console to ensure it comes in correctly
+// d3.json(lostData, function(data) {
+//     console.log(data.features);
+// });
+
+// d3.json(foundData, function(data) {
+//     console.log(data.features);
+// });
+
 function getIcon(animal) {
 
     // Using conditional statements to choose which icon to input
@@ -29,88 +38,121 @@ function getIcon(animal) {
 // Perform a request of the lost pet data
 d3.json(lostData, function(data1) {
 
-    // Send the response to the createFeatures function
-    createFeatures(data1.features);
-});
+    d3.json(foundData, function(data2) {
 
-// Perform a request of the found pet data
-d3.json(foundData, function(data2) {
-
-    // Send the response to the createFeatures function
-    createFeatures(data2.features);
+        // Send the responses to the createFeatures function
+        createFeatures(data1.features, data2.features);
+    });
 });
 
 // Design the createFeatures function
-// Function should spit out 2 layers that will be sent to the createMap function
 function createFeatures(lost, found) {
 
     // Define a function to run on each feature for the lost pet data
     function LOnEachFeatures(feature, layer) {
 
         // Design the pop-ups
-        layer.bindPopup("<h3>Missing: " + feature.properties.name +
-        "</h3><hr><p>Missing since: " + feature.properties.date + "at " + feature.properties.time +
-        "</p><hr><p>Species: " + feature.pet_type + 
-        "</p><hr><p>Age: " + feature.properties.age + 
-        "</p><hr><p>Description: " + feature.properties.description + 
-        "</p><hr><p>Contact " + feature.owner + " at " + feature.properties.phone + " or " + feature.properties.email + 
-        "</p><hr><p>Return to " + feature.properties.return_street_add + feature.properties.return_city + 
-        ", " + feature.properties.return_state + feature.properties.return_zip_code + "</p>");
+        layer.bindPopup("<h3>Missing: " + feature.properties.Pet_Name +
+        "</h3><hr><p>Missing since: " + feature.properties.Date + " at " + feature.properties.Time +
+        "</p><hr><p>Species: " + feature.properties.Pet_Type + 
+        "</p><hr><p>Age: " + feature.properties.Age + 
+        "</p><hr><p>Description: " + feature.properties.Description + 
+        "</p><hr><p>Contact " + feature.properties.Owner + " at " + feature.properties.Phone + " or " + feature.properties.Email + 
+        "</p><hr><p>Return to " + feature.properties.Return_Street_Add + " " + feature.properties.Return_City + 
+        ", " + feature.properties.Return_State + " " + feature.properties.Return_Zip_Code + "</p>");
     }
 
     // Define a function to run on each feature for the found pet data
     function FOnEachFeatures(feature, layer) {
 
         // Design the pop-ups
-        layer.bindPopup("<h3>Found " + feature.properties.pet_type +
-        "</h3><hr><p>Found on: " + feature.properties.date + "at " + feature.properties.time +
-        "</p><hr><p>Approximate age: " + feature.properties.age + 
-        "</p><hr><p>Description: " + feature.properties.description + 
-        "</p><hr><p>Is pet contained? " + feature.properties.aquired +
-        "</p><hr><p>Contact " + feature.founder + " at " + feature.properties.phone + " or " + feature.properties.email + "</p>");
+        layer.bindPopup("<h3>Found " + feature.properties.Pet_Type +
+        "</h3><hr><p>Found on: " + feature.properties.Date + "at " + feature.properties.Time +
+        "</p><hr><p>Approximate age: " + feature.properties.Age + 
+        "</p><hr><p>Description: " + feature.properties.Description + 
+        "</p><hr><p>Is pet contained? " + feature.properties.Aquired +
+        "</p><hr><p>Contact " + feature.Founder + " at " + feature.properties.Phone + " or " + feature.properties.Email + "</p>");
 
     }
 
-    // Define an icon for lost pets
-    var lostMarker = L.ExtraMarkers.icon({
-        icon: getIcon(lost),
-        markerColor: 'red',
-        shape: 'circle',
-        prefix: 'fa'
-    });
+    // Create a function that will build an icon for lost pets
+    // function createLMarker (feature) {
+    //     var lostMarker = L.ExtraMarkers.icon({
+    //         icon: getIcon(feature.properties.Pet_Type),
+    //         markerColor: 'red',
+    //         shape: 'circle',
+    //         prefix: 'fa'
+    //     });
 
-    // Define an icon for the found pets
-    var foundMarker = L.ExtraMarkers.icon({
-        icon: getIcon(found),
-        markerColor: 'blue',
-        shape: 'circle',
-        prefix: 'fa'
-    });
+    //     return lostMarker;
+    // }
 
-    // Define a function to design the marker for the lost pet data
-    function LPointToLayer (latlng) {
-        return L.marker(latlng, {icon: lostMarker});
-    }
+    // var icons = {
+    //     newLMarker: createLMarker
+    // };
 
-    // Define a function to design the marker for the found pet data
-    function FPointToLayer (latlng) {
-        return L.marker(latlng, {icon: foundMarker});
-    }
+    // // Define a function to design the marker for the lost pet data
+    // function LPointToLayer (latlng) {
+    //     return L.marker(latlng, {
+    //         icon: icons
+    //     });
+    // }
+
+    // function LPointToLayer (latlng) {
+    //     return L.circleMarker(latlng);
+    // }
+
 
     // Create the GeoJson layers for the lost and found pet data
 
     // Lost
     var lostLayer = L.geoJSON(lost, {
-        pointToLayer: LPointToLayer,
+        // pointToLayer: LPointToLayer,
         onEachFeature: LOnEachFeatures
     });
 
     // Found
     var foundLayer = L.geoJSON(found, {
-        pointToLayer: FPointToLayer,
+        // pointToLayer: FPointToLayer,
         onEachFeature: FOnEachFeatures
     });
 
-    // Sending the two layers to the createMap function
+    // Sending the layer to the createMap function
     createMap(lostLayer, foundLayer);
 }
+
+// Define the createMap function
+function createMap(lostLayer, foundLayer) {
+
+    // Define the tile layer
+    var streetMap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+        attribution: "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"http://mapbox.com\">Mapbox</a>",
+        maxZoom: 18,
+        id: "mapbox.streets",
+        accessToken: API_KEY
+    });
+
+    // Create a baseMaps object to hold the streetmap layer
+    var baseMaps = {
+        "Street Map": streetMap
+    };
+
+    // Create an overlayMaps object to hold the lost and found pet layers
+    var overlayMaps = {
+        "Lost Pets": lostLayer,
+        "Found Pets": foundLayer
+    };
+
+    // Create the map object
+    var myMap = L.map("map", {
+        center: [37.0902, -95.7129],
+        zoom: 5,
+        layers: [streetMap, lostLayer, foundLayer]
+    });
+
+    // Create a layer control to pass in the baseMaps and overlayMaps, then add it to the map
+    L.control.layers(baseMaps, overlayMaps, {
+        collapsed: false
+    }).addTo(myMap);
+}
+
