@@ -47,7 +47,7 @@ def home():
 # Create the route to render to the map.html template
 @app.route("/map")
 def map():
-    return render_template("map.html")
+    return render_template("map2.html")
 
 # Query the database and send the jsonified results for the lost and pet tables
 # Lost Pet
@@ -180,25 +180,25 @@ def lost_map():
     lost_dict = []
     for name, pet_type, age, street_add, city, state, zip_code, lat, lng, owner, phone, email, date, time, description, return_street_add, return_city, return_state, return_zip_code in results:
         lost_pet = {
-            "Pet Name" : name,
-            "Pet Type" : pet_type,
-            "Pet Age" : age,
+            "Pet_Name" : name,
+            "Pet_Type" : pet_type,
+            "Age" : age,
             "Street Address" : street_add,
             "City" : city,
             "State" : state,
             "Zip Code" : zip_code,
             "lat" : lat,
             "lng" : lng,
-            "Owner's Name" : owner,
-            "Owner's Phone Number" : phone,
-            "Owner's Email" : email,
+            "Owner" : owner,
+            "Phone" : phone,
+            "Email" : email,
             "Date" : date,
             "Time" : time,
             "Description" : description,
-            "Return Street Address" : return_street_add,
-            "Return City" : return_city,
-            "Return State" : return_state,
-            "Return Zip Code" : return_zip_code
+            "Return_Street_Add" : return_street_add,
+            "Return_City" : return_city,
+            "Return_State" : return_state,
+            "Return_Zip_Code" : return_zip_code
         }
         lost_dict.append(lost_pet)
 
@@ -235,17 +235,17 @@ def found_map():
     found_dict = []
     for pet_type, age, street_add, city, state, zip_code, lat, lng, founder, phone, email, date, time, aquired, description in results:
         found_pet = {
-            "Pet Type" : pet_type,
-            "Pet Age" : age,
+            "Pet_Type" : pet_type,
+            "Age" : age,
             "Street Address" : street_add,
             "City" : city,
             "State" : state,
             "Zip Code" : zip_code,
             "lat" : lat,
             "lng" : lng,
-            "Owner's Name" : founder,
-            "Owner's Phone Number" : phone,
-            "Owner's Email" : email,
+            "Founder" : founder,
+            "Phone" : phone,
+            "Email" : email,
             "Date" : date,
             "Time" : time,
             "Aquired": aquired,
