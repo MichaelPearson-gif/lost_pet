@@ -140,9 +140,19 @@ function createMap(lostLayer, foundLayer) {
         accessToken: API_KEY
     });
 
+    // Define a dark mode tile layer
+    var darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+        attribution: "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"http://mapbox.com\">Mapbox</a>",
+        maxZoom: 18,
+        id: "mapbox.dark",
+        accessToken: API_KEY
+    });
+
+
     // Create a baseMaps object to hold the streetmap layer
     var baseMaps = {
-        "Street Map": streetMap
+        "Street Map": streetMap,
+        "Dark Map": darkmap
     };
 
     // Create an overlayMaps object to hold the lost and found pet layers
