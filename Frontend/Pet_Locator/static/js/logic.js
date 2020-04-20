@@ -16,22 +16,22 @@ function getIcon(animal) {
 
     // Using conditional statements to choose which icon to input
     if (animal === "dog") {
-        return "fa-dog";
+        return '<i class="fa fa-dog"></i>';
     }
     else if (animal === "cat") {
-        return "fa-cat";
+        return '<i class="fa fa-cat"></i>';
     } 
     else if (animal === "frog") {
-        return "fa-frog";
+        return '<i class="fa fa-frog"></i>';
     }
     else if (animal === "bird") {
-        return "fa-feather";
+        return '<i class="fa fa-feather"></i>';
     }
     else if (animal === "spider") {
-        return "fa-spider";
+        return '<i class="fa fa-spider"></i>';
     }
     else {
-        return "fa-paw";
+        return '<i class="fa fa-paw"></i>';
     }
 };
 
@@ -76,44 +76,52 @@ function createFeatures(lost, found) {
     }
 
     // Create a function that will build an icon for lost pets
-    // function createLMarker (feature) {
-    //     var lostMarker = L.ExtraMarkers.icon({
-    //         icon: getIcon(feature.properties.Pet_Type),
-    //         markerColor: 'red',
-    //         shape: 'circle',
-    //         prefix: 'fa'
-    //     });
+    function createLMarker (feature) {
+        var lostMarker = L.divIcon({
+            html: getIcon(feature.properties.Pet_Type),
+            iconSize: [20, 20],
+            className: 'lostDivIcon'
+        });
 
-    //     return lostMarker;
-    // }
+        return lostMarker;
+    }
 
-    // var icons = {
-    //     newLMarker: createLMarker
-    // };
+    // Create a function that will build an icon for the found pets
+    function createFMarker (feature) {
+        var foundMarker = L.divIcon({
+            html: getIcon(feature.properties.Pet_Type),
+            iconSize: [20, 20],
+            className: 'foundDivIcon'
+        });
 
-    // // Define a function to design the marker for the lost pet data
-    // function LPointToLayer (latlng) {
-    //     return L.marker(latlng, {
-    //         icon: icons
-    //     });
-    // }
+        return foundMarker;
+    }
 
-    // function LPointToLayer (latlng) {
-    //     return L.circleMarker(latlng);
-    // }
+    // Define a function to design the marker for the lost pet data
+    function LPointToLayer (feature, latlng) {
+        return L.marker(latlng, {
+            icon: createLMarker(feature)
+        });
+    }
 
+    // Define a function to design the marker for the found pet data
+    function FPointToLayer(feature, latlng) {
+        return L.marker(latlng, {
+            icon: createFMarker(feature)
+        });
+    }
 
     // Create the GeoJson layers for the lost and found pet data
 
     // Lost
     var lostLayer = L.geoJSON(lost, {
-        // pointToLayer: LPointToLayer,
+        pointToLayer: LPointToLayer,
         onEachFeature: LOnEachFeatures
     });
 
     // Found
     var foundLayer = L.geoJSON(found, {
-        // pointToLayer: FPointToLayer,
+        pointToLayer: FPointToLayer,
         onEachFeature: FOnEachFeatures
     });
 

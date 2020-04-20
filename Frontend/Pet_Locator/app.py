@@ -47,7 +47,7 @@ def home():
 # Create the route to render to the map.html template
 @app.route("/map")
 def map():
-    return render_template("map2.html")
+    return render_template("map.html")
 
 # Query the database and send the jsonified results for the lost and pet tables
 # Lost Pet

@@ -4,7 +4,8 @@
   <title>Pet Locator</title>
 
   <!-- Leaflet CSS & JS -->
-  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css"> -->
+  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
   crossorigin=""/>
@@ -17,10 +18,13 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.extra-markers.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/map_style.css') }}">
 
-  <!--D3 cdn-->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script> -->
-
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/5f0238ef65.js" crossorigin="anonymous"></script>
+  <link href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css" media="all" rel="stylesheet">
+  <link href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css" media="all" rel="stylesheet">
+  <link href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all" rel="stylesheet">
 </head>
+
 <body>
 
   <!-- The div that holds our map -->
@@ -31,9 +35,14 @@
   <!-- D3 cdn-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
 
-
   <!-- Icons -->
   <script src="{{ url_for('static', filename='js/leaflet.extra-markers.min.js') }}"></script> 
+  <i class="fa fa-paw"></i>
+  <i class="fa fa-dog"></i>
+  <i class="fa fa-cat"></i>
+  <i class="fa fa-frog"></i>
+  <i class="fa fa-feather"></i>
+  <i class="fa fa-spider"></i>
 
   <!-- API Key -->
   <script src="{{ url_for('static', filename='js/config.js') }}"></script>
