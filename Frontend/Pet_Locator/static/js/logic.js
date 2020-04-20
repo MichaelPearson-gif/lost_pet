@@ -67,11 +67,11 @@ function createFeatures(lost, found) {
 
         // Design the pop-ups
         layer.bindPopup("<h3>Found " + feature.properties.Pet_Type +
-        "</h3><hr><p>Found on: " + feature.properties.Date + "at " + feature.properties.Time +
+        "</h3><hr><p>Found on: " + feature.properties.Date + " at " + feature.properties.Time +
         "</p><hr><p>Approximate age: " + feature.properties.Age + 
         "</p><hr><p>Description: " + feature.properties.Description + 
         "</p><hr><p>Is pet contained? " + feature.properties.Aquired +
-        "</p><hr><p>Contact " + feature.Founder + " at " + feature.properties.Phone + " or " + feature.properties.Email + "</p>");
+        "</p><hr><p>Contact " + feature.properties.Founder + " at " + feature.properties.Phone + " or " + feature.properties.Email + "</p>");
 
     }
 
