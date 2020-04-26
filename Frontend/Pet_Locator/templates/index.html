@@ -11,40 +11,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="front_page">
     <!-- Create a header for the web page-->
     <div class="container">
-        <div class="jumbotron" style="text-align: center">
+        <div class="header" style="text-align: center">
             <h1>Lost Pet Locator</h1>
             <p></p>
         </div>
-    </div>
-    <!-- Create the links to lost and found pet forms -->
-    <div class="choice">
-        <!-- Header for choosing the type of report to file -->
-        <h2></h2>
-        <div class="row">
-            <!-- Make the row into 2 columns for the buttons to report a lost or found pet-->
-            <!-- The first column will have the button to report a lost pet -->
-            <div class="col-md-6" id="lost">
-                <a href="/lost_send" class="btn btn-default" role="button">Report a Lost Pet</a>
-            </div>
-            <!-- The second column will have the button to report a found pet -->
-            <div class="col-md-6" id="found">
-                <a href="/found_send" class="btn btn-default" role="button">Report a Found Pet</a>
-            </div>
-        </div>
-    </div>
-    <!-- Create the link to the map -->
-    <div class="Map">
-        <!-- Header for the button to click on the map -->
-        <h2></h2>
-        <div class="row">
-            <!-- There is only one button for this one, so I only need one column. -->
-            <div class="col-md-12">
-                <a href="/map" class="btn btn-default" role="button">Map</a>
+        <!-- Create the links to lost and found pet forms -->
+        <div class="choice">
+            <div class="row">
+                <!-- Make the row into 2 columns for the buttons to report a lost or found pet and one column for the map-->
+                <!-- The first column will have the button to file a report -->
+                <div class="col-md-6" id="report">
+                    <!-- Header for choosing the type of report to file -->
+                    <h2></h2>
+                    <a href="/lost_send" class="btn btn-default" role="button">Report a Lost Pet</a>
+                    <a href="/found_send" class="btn btn-default" role="button">Report a Found Pet</a>
+                </div>
+                <!-- The second column will have the button to report a found pet -->
+                <div class="col-md-6" id="Map">
+                    <h2></h2>
+                    <a href="/map" class="btn btn-default" role="button">Map</a>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="pet-img">
+        <img src="../static/Images/pets-1920w.png">
     </div>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
