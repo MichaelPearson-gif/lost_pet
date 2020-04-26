@@ -16,10 +16,12 @@ html {
     color: red;
     text-align: center;
     line-height: 20px;
+    font-size: 2em;
 }
 
 .foundDivIcon {
     color: green;
     text-align: center;
     line-height: 20px;
+    font-size: 2em;
 }
