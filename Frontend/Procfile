@@ -1,0 +1,1 @@
+web: gunicorn Pet_Locator.app:app
