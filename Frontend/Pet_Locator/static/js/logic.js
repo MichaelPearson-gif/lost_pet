@@ -35,6 +35,30 @@ function getIcon(animal) {
     }
 };
 
+function getLabel(animal) {
+
+    // Using conditional statements to choose which icon to input
+    if (animal === "dog") {
+        return "fa fa-dog";
+    }
+    else if (animal === "cat") {
+        return "fa fa-cat";
+    } 
+    else if (animal === "frog") {
+        return "fa fa-frog";
+    }
+    else if (animal === "bird") {
+        return "fa fa-feather";
+    }
+    else if (animal === "spider") {
+        return "fa fa-spider";
+    }
+    else {
+        return "fa fa-paw";
+    }
+};
+
+
 // Perform a request of the lost pet data
 d3.json(lostData, function(data1) {
 
@@ -148,7 +172,6 @@ function createMap(lostLayer, foundLayer) {
         accessToken: API_KEY
     });
 
-
     // Create a baseMaps object to hold the streetmap layer
     var baseMaps = {
         "Street Map": streetMap,
@@ -157,8 +180,8 @@ function createMap(lostLayer, foundLayer) {
 
     // Create an overlayMaps object to hold the lost and found pet layers
     var overlayMaps = {
-        "Lost Pets": lostLayer,
-        "Found Pets": foundLayer
+        "Lost Pets (red)": lostLayer,
+        "Found Pets (green)": foundLayer
     };
 
     // Create the map object
@@ -172,5 +195,32 @@ function createMap(lostLayer, foundLayer) {
     L.control.layers(baseMaps, overlayMaps, {
         collapsed: false
     }).addTo(myMap);
-}
 
+    // Create a Legend
+
+    // Pre-define the placement of the legend on the map
+    var legend = L.control({position: "bottomright"});
+
+    legend.onAdd = function() {
+
+        // Create a new div tag with a class called "info"
+        var div = L.DomUtil.create("div", "info legend");
+
+        // Create an array of the labels that will be used on the legend
+        var categories = ["dog", "cat", "frog", "bird", 'spider', "other"];
+        var labels = ['<strong>Scroll to zoom in and out</strong>', '<strong>Animals</strong>'];
+
+        // Loop through the icons and generate a label with a picture with each icon
+        for (var i = 0; i < categories.length; i++) {
+            div.innerHTML +=
+            labels.push(
+                getIcon(categories[i]) + ' ' +
+               (categories[i] ? categories[i] : '+'));
+
+        }
+        div.innerHTML = labels.join('<br>');
+
+        return div;
+    };
+    legend.addTo(myMap);
+}

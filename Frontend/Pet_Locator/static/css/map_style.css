@@ -1,7 +1,7 @@
 /* remove default margin and padding from body */
 body {
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
 }
   
 /* set map, body, and html to 100% of the screen size */
@@ -24,4 +24,19 @@ html {
     text-align: center;
     line-height: 20px;
     font-size: 2em;
+}
+
+.legend {
+    padding: 6px 8px;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
 }
