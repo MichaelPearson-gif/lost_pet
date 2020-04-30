@@ -3,13 +3,14 @@
     padding: 1.5%
 }
 
+/* Styling the image so it does not interupt the rest of the page*/
 img {
     position: absolute;
     bottom: 0%;
     margin-top: 8%;
     width: 100%;
-    height: 35%;
-    visibility: visible;
+    height: 45%;
+    /* visibility: visible; */
 }
 
 .btn {
@@ -45,6 +46,6 @@ h1 {
         margin-bottom: 2%;
     }
     img {
-        visibility: hidden;
+        height: 25%;
     }
 }
