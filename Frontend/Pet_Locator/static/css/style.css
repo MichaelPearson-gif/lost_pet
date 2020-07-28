@@ -47,11 +47,11 @@ form label.required:after {
 }
 
 /* Css for when accessing on a smartphone*/
-@media (max-width: 600px) {
+@media (max-width: 414px) {
     .btn {
         margin-bottom: 2%;
     }
     img {
-        height: 25%;
+        height: 30%;
     }
 }
