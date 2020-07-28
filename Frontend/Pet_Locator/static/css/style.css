@@ -40,6 +40,12 @@ h1 {
     font-size: 2.5em;
 }
 
+/* Creates the red asterisk for important fields in the report forms  */
+form label.required:after {
+    color: red;
+    content: " *";
+}
+
 /* Css for when accessing on a smartphone*/
 @media (max-width: 600px) {
     .btn {

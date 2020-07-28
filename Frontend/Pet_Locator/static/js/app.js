@@ -28,4 +28,20 @@ d3.select(".Map").selectAll("h2")
         return d;
     });
 
+// Creating the headers for the Lost and Found pet forms h2 tag
+var lostTitle = "Please enter the information about your lost pet. Fields marked with a red asterisk must be filled in order to submit your lost pet form.";
+var foundTitle = "Please enter the information about the pet you found. Fields marked with a red asterisk must be filled in order to submit your found pet form.";
 
+d3.select(".lost-title").selectAll("h2")
+    .text(lostTitle)
+    .enter()
+    .html(function(d) {
+        return d;
+    });
+
+d3.select(".found-title").selectAll("h2")
+    .text(foundTitle)
+    .enter()
+    .html(function(d) {
+        return d;
+    });
