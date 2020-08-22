@@ -12,6 +12,7 @@ var foundData = "/api/map/found";
 //     console.log(data.features);
 // });
 
+// Retrieves the appropriate animal icon 
 function getIcon(animal) {
 
     // Using conditional statements to choose which icon to input
@@ -35,6 +36,7 @@ function getIcon(animal) {
     }
 };
 
+// Match the pet species with the appropriate icon
 function getLabel(animal) {
 
     // Using conditional statements to choose which icon to input

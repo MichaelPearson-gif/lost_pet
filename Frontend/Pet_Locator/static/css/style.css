@@ -4,7 +4,7 @@
 }
 .header
 p {
-    font-size: 2vw;
+    font-size: 2.5vh;
 }
 
 /* Styling the image so it does not interupt the rest of the page*/
@@ -32,10 +32,6 @@ html {
 body {
     background-color: #90e7e6;
     height: 100%;
-    /* background-image: url(https://lost-pet-locator.herokuapp.com/static/Images/pets-1920w.png);
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    background-size: 80%; */
 }
 
 .front_page{
